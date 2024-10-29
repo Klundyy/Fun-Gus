@@ -8,7 +8,7 @@ public class GusScript : MonoBehaviour
 {
     public Rigidbody2D myRigidbody;
     public float jumpForce;
-    public float speed;
+    public float rotationSpeed;
     private float moveInput;
 
 
@@ -30,10 +30,8 @@ public class GusScript : MonoBehaviour
 
 
     private void FixedUpdate()
-    {
-        moveInput = Input.GetAxis("Horizontal");
-        myRigidbody.velocity = new Vector2(moveInput * speed, myRigidbody.velocity.y);
-    }
+    { 
+      }
 
 
     // Update is called once per frame
@@ -43,13 +41,23 @@ public class GusScript : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
 
 
+        // Freeze Z rotation when grounded, unfreeze when in the air
+        if (isGrounded)
+        {
+            myRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+        else
+        {
+            myRigidbody.constraints = RigidbodyConstraints2D.None;
+        }
 
         if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
         {
             isJumping = true;
-            jumpTimeCounter = jumpTime; 
+            jumpTimeCounter = jumpTime;
             myRigidbody.velocity = Vector2.up * jumpForce;
         }
+
 
         if (Input.GetKey(KeyCode.Space) && isJumping == true) 
         {
@@ -66,6 +74,20 @@ public class GusScript : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space))
         {
             isJumping = false;
-        }   
+        }
+
+
+        // Rotate player while in the air
+        if (!isGrounded)
+        {
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.Rotate(Vector3.back * rotationSpeed * Time.deltaTime);
+            }
+        }
     }
 }

@@ -187,8 +187,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.1368816, y: -0.01138559}
-  m_Size: {x: 0.77376294, y: 1.7257539}
+  m_Offset: {x: 0.09548738, y: 0.061077368}
+  m_Size: {x: 0.30902693, y: 0.9947433}
   m_Direction: 0
 --- !u!114 &323270342
 MonoBehaviour:
@@ -517,7 +517,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!212 &1876789921
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -619,9 +619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigidbody: {fileID: 1876789920}
   jumpForce: 10
-  rotationSpeed: 0
-  maxTiltAngle: 0
-  speed: 10
+  rotationSpeed: 200
   feetPos: {fileID: 1969050618}
   checkRadius: 0.3
   whatIsGround:
@@ -676,8 +674,6 @@ MonoBehaviour:
   myRigidbody: {fileID: 1876789920}
   jumpForce: 10
   rotationSpeed: 0
-  maxTiltAngle: 0
-  speed: 10
   feetPos: {fileID: 1969050618}
   checkRadius: 0.3
   whatIsGround:
