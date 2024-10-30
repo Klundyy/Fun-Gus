@@ -11,6 +11,7 @@ public class GusScript : MonoBehaviour
     private bool StemLocked = true;
     private float timeJumpHeld = 0;
     public float maxJump = 10f;
+    public float minJump = 5f;
     public float heldJumpMultiplier = 2f;
     
     public Camera mainCamera;
@@ -45,7 +46,7 @@ public class GusScript : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space)) {
             if (StemLocked) {
-                myRigidbody.velocity = Vector2.up * Mathf.Min(timeJumpHeld * heldJumpMultiplier, maxJump);
+                myRigidbody.velocity = Vector2.up * Mathf.Max(Mathf.Min(timeJumpHeld * heldJumpMultiplier, maxJump), minJump);
                 timeJumpHeld = 0;
             }
         }
