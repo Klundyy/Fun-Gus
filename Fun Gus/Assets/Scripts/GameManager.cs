@@ -40,5 +40,6 @@ public class GameManager : MonoBehaviour
         coin.SetActive(false);
         yield return new WaitForSeconds(respawnTime);
         coin.SetActive(true);
+        coin.GetComponent<Coins>().ResetCoin();
     }
 }

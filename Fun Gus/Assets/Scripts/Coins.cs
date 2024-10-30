@@ -6,14 +6,21 @@ public class Coins : MonoBehaviour
 {
     public int coinAmount;
     public float coinRespawnTime;
+    private bool isCollected = false;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isCollected)
         {
+            isCollected = true;
             Debug.Log("Coin Collected");
-            ScoreController.instance.AddScore(coinAmount);
             GameManager.instance.DisableCoin(gameObject, coinRespawnTime);
+            ScoreController.instance.AddScore(coinAmount);
         }
+    }
+
+    public void ResetCoin()
+    {
+        isCollected = false;
     }
 
 }
