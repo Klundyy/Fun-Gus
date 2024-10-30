@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-   // public Text coinText;
-    private int coinCount;
 
     private void Awake()
     {
@@ -24,8 +22,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        coinCount = 0;
-        UpdateCoinText();
     }
 
     // Update is called once per frame
@@ -34,17 +30,6 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void AddCoin(int coin)
-    {
-        coinCount += coin;
-        UpdateCoinText();
-    }
-
-    private void UpdateCoinText()
-    {
-        Debug.Log("Coin collected: " + coinCount);
-       // coinText.text = "Coins: " + coinCount;
-    }
     public void DisableCoin(GameObject coin, float respawnTime)
     {
         StartCoroutine(DisableAndReenable(coin, respawnTime));

@@ -11,7 +11,7 @@ public class Coins : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Coin Collected");
-            GameManager.instance.AddCoin(coinAmount);
+            ScoreController.instance.AddScore(coinAmount);
             GameManager.instance.DisableCoin(gameObject, coinRespawnTime);
         }
     }
