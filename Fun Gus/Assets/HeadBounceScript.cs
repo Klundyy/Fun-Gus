@@ -26,7 +26,8 @@ public class HeadBounceScript : MonoBehaviour
             float angle = stemRigidbody.transform.eulerAngles.z;
             angle = ((360)+(angle-90)) % 360;
             stemRigidbody.velocity = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * bounceForce;
-            if (bounceForce > 1 && GameObject.Find("Head").GetComponent<GusScript>().consecutiveFlips < 1) {
+            GameObject.Find("GusBody").GetComponent<GusScript>().consecutiveFlips = 0;
+            if (bounceForce > startingBounceForce/2 && (GameObject.Find("GusBody").GetComponent<GusScript>().consecutiveFlips < 1)) {
                 bounceForce--;
             }
             Debug.Log(bounceForce);

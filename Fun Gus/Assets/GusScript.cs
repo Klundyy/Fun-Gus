@@ -74,7 +74,7 @@ public class GusScript : MonoBehaviour
         if (collision.CompareTag(groundTag)) {
             StemLocked = true;
             GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce = startingHeadBounceForce;
-
+            consecutiveFlips = 0;
         } 
     }
 
@@ -97,10 +97,10 @@ public class GusScript : MonoBehaviour
 
         if (Mathf.Abs(cumulativeOneDirectionRoatation) > 360) {
             Debug.Log("FLIP");
-            if (GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce < startingHeadBounceForce) {
+            Debug.Log("Starting force" + startingHeadBounceForce);
+            if ((GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce) < startingHeadBounceForce) {
                 GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce += 1;
             }
-            GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce += 1;
             cumulativeOneDirectionRoatation = 0;
             consecutiveFlips += 1;
         }
