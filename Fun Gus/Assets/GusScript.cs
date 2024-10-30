@@ -8,8 +8,15 @@ public class GusScript : MonoBehaviour
     public float rotationSpeed = 0.75f;
     // Start is called before the first frame update
     public string groundTag = "Ground";
-
     private bool StemLocked = true;
+    private float timeJumpHeld = 0;
+    public float maxJump = 10f;
+    public float heldJumpMultiplier = 2f;
+    
+    public Camera mainCamera;
+    private Color stationaryColor = Color.gray;
+    private Color movingColor = Color.yellow;
+    private float transitionSpeed = 2f;
 
     void Start()
     {
@@ -19,9 +26,16 @@ public class GusScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKey(KeyCode.Space)) {
             if (StemLocked) {
-                myRigidbody.velocity = Vector2.up * 10;
+                timeJumpHeld += Time.deltaTime;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space)) {
+            if (StemLocked) {
+                myRigidbody.velocity = Vector2.up * Mathf.Min(timeJumpHeld * heldJumpMultiplier, maxJump);
+                timeJumpHeld = 0;
             }
         }
         
@@ -34,6 +48,12 @@ public class GusScript : MonoBehaviour
             if (!StemLocked) {
                 myRigidbody.rotation -= rotationSpeed;
             }
+        }
+
+        if (myRigidbody.velocity.magnitude > 0.1f) {
+            mainCamera.backgroundColor = Color.Lerp(mainCamera.backgroundColor, movingColor, Time.deltaTime * transitionSpeed);
+        } else {
+            mainCamera.backgroundColor = Color.Lerp(mainCamera.backgroundColor, stationaryColor, Time.deltaTime * transitionSpeed);
         }
 
     }
