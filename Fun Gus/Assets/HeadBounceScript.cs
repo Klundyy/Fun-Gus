@@ -6,11 +6,12 @@ public class HeadBounceScript : MonoBehaviour
 {
     public Rigidbody2D stemRigidbody;
     public string groundTag = "Ground";
-    public float bounceForce = 1f;
+    public float startingBounceForce = 10f;
+    public float bounceForce;
     // Start is called before the first frame update
     void Start()
     {
-        
+        bounceForce = startingBounceForce;
     }
 
     // Update is called once per frame
@@ -24,9 +25,11 @@ public class HeadBounceScript : MonoBehaviour
             //stemRigidbody.velocity = Vector2.up * bounceForce;
             float angle = stemRigidbody.transform.eulerAngles.z;
             angle = ((360)+(angle-90)) % 360;
-            Debug.Log(angle);
-            Debug.Log(new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * bounceForce);
             stemRigidbody.velocity = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * bounceForce;
+            if (bounceForce > 1 && GameObject.Find("Head").GetComponent<GusScript>().consecutiveFlips < 1) {
+                bounceForce--;
+            }
+            Debug.Log(bounceForce);
         } 
     }
 }

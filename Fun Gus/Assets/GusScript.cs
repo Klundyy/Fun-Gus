@@ -18,9 +18,20 @@ public class GusScript : MonoBehaviour
     private Color movingColor = Color.yellow;
     private float transitionSpeed = 2f;
 
+    private float headBounceForce;
+
+    private float startingHeadBounceForce;
+
+    private int flipDirection = 0;
+    private float cumulativeOneDirectionRoatation = 0;
+    private float lastRotation = 0;
+    public float consecutiveFlips = 0;
+
     void Start()
     {
-
+        lastRotation = myRigidbody.transform.eulerAngles.z;
+        headBounceForce = GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce;
+        startingHeadBounceForce = GameObject.Find("Head").GetComponent<HeadBounceScript>().startingBounceForce;
     }
 
     // Update is called once per frame
@@ -56,15 +67,45 @@ public class GusScript : MonoBehaviour
             mainCamera.backgroundColor = Color.Lerp(mainCamera.backgroundColor, stationaryColor, Time.deltaTime * transitionSpeed);
         }
 
+        DetectFlip();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag(groundTag)) {
             StemLocked = true;
+            GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce = startingHeadBounceForce;
+
         } 
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
         StemLocked = false;
+    }
+
+    private void DetectFlip() {
+        float currentRotation = myRigidbody.transform.eulerAngles.z;
+        float rotationChange = Mathf.DeltaAngle(lastRotation, currentRotation);
+
+        if (rotationChange > 0 && !(flipDirection == 1)) {
+            flipDirection = 1;
+            cumulativeOneDirectionRoatation = 0;
+        } else if (rotationChange < 0 && !(flipDirection == -1)) {
+            flipDirection = -1;
+            cumulativeOneDirectionRoatation = 0;
+        }
+
+
+        if (Mathf.Abs(cumulativeOneDirectionRoatation) > 360) {
+            Debug.Log("FLIP");
+            if (GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce < startingHeadBounceForce) {
+                GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce += 1;
+            }
+            GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce += 1;
+            cumulativeOneDirectionRoatation = 0;
+            consecutiveFlips += 1;
+        }
+        
+        cumulativeOneDirectionRoatation += rotationChange;
+        lastRotation = currentRotation;
     }
 }

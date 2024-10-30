@@ -257,6 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stemRigidbody: {fileID: 1876789920}
   groundTag: Ground
+  startingBounceForce: 10
   bounceForce: 10
 --- !u!1 &616769110
 GameObject:
@@ -837,6 +838,8 @@ MonoBehaviour:
   maxJump: 15
   heldJumpMultiplier: 5
   mainCamera: {fileID: 1390521070}
+  headBounceForce: 0
+  startingHeadBounceForce: 0
 --- !u!1 &1951055687
 GameObject:
   m_ObjectHideFlags: 0
