@@ -777,17 +777,45 @@ PrefabInstance:
       propertyPath: m_margin.y
       value: -13.42667
       objectReference: {fileID: 0}
+    - target: {fileID: 5099065640258139371, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5988626360617825133, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
       propertyPath: m_Name
       value: ScoreUI
       objectReference: {fileID: 0}
     - target: {fileID: 6648023369597588737, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648023369597588737, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648023369597588737, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648023369597588737, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648023369597588737, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648023369597588737, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648023369597588737, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 300
+      value: -104
       objectReference: {fileID: 0}
     - target: {fileID: 6648023369597588737, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 182
+      value: -38
       objectReference: {fileID: 0}
     - target: {fileID: 7316466739379177242, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
       propertyPath: m_LocalPosition.x
