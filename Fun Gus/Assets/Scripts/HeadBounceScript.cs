@@ -6,7 +6,7 @@ public class HeadBounceScript : MonoBehaviour
 {
     public Rigidbody2D stemRigidbody;
     public string groundTag = "Ground";
-    public float startingBounceForce = 10f;
+    public float startingBounceForce = 50f;
     public float bounceForce;
     // Start is called before the first frame update
     void Start()
