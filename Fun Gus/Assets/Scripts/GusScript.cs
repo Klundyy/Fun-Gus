@@ -11,6 +11,7 @@ public class GusScript : MonoBehaviour
     private bool StemLocked = true;
     private float timeJumpHeld = 0;
     public float maxJump = 10f;
+    public float minJump = 5f;
     public float heldJumpMultiplier = 2f;
     
     public Camera mainCamera;
@@ -18,9 +19,20 @@ public class GusScript : MonoBehaviour
     private Color movingColor = Color.yellow;
     private float transitionSpeed = 2f;
 
+    private float headBounceForce;
+
+    private float startingHeadBounceForce;
+
+    private int flipDirection = 0;
+    private float cumulativeOneDirectionRoatation = 0;
+    private float lastRotation = 0;
+    public float consecutiveFlips = 0;
+
     void Start()
     {
-
+        lastRotation = myRigidbody.transform.eulerAngles.z;
+        headBounceForce = GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce;
+        startingHeadBounceForce = GameObject.Find("Head").GetComponent<HeadBounceScript>().startingBounceForce;
     }
 
     // Update is called once per frame
@@ -34,7 +46,7 @@ public class GusScript : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space)) {
             if (StemLocked) {
-                myRigidbody.velocity = Vector2.up * Mathf.Min(timeJumpHeld * heldJumpMultiplier, maxJump);
+                myRigidbody.velocity = Vector2.up * Mathf.Max(Mathf.Min(timeJumpHeld * heldJumpMultiplier, maxJump), minJump);
                 timeJumpHeld = 0;
             }
         }
@@ -56,15 +68,45 @@ public class GusScript : MonoBehaviour
             mainCamera.backgroundColor = Color.Lerp(mainCamera.backgroundColor, stationaryColor, Time.deltaTime * transitionSpeed);
         }
 
+        DetectFlip();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag(groundTag)) {
             StemLocked = true;
+            GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce = startingHeadBounceForce;
+            consecutiveFlips = 0;
         } 
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
         StemLocked = false;
+    }
+
+    private void DetectFlip() {
+        float currentRotation = myRigidbody.transform.eulerAngles.z;
+        float rotationChange = Mathf.DeltaAngle(lastRotation, currentRotation);
+
+        if (rotationChange > 0 && !(flipDirection == 1)) {
+            flipDirection = 1;
+            cumulativeOneDirectionRoatation = 0;
+        } else if (rotationChange < 0 && !(flipDirection == -1)) {
+            flipDirection = -1;
+            cumulativeOneDirectionRoatation = 0;
+        }
+
+
+        if (Mathf.Abs(cumulativeOneDirectionRoatation) > 360) {
+            Debug.Log("FLIP");
+            Debug.Log("Starting force" + startingHeadBounceForce);
+            if ((GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce) < startingHeadBounceForce) {
+                GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce += 1;
+            }
+            cumulativeOneDirectionRoatation = 0;
+            consecutiveFlips += 1;
+        }
+        
+        cumulativeOneDirectionRoatation += rotationChange;
+        lastRotation = currentRotation;
     }
 }
