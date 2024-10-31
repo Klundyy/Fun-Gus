@@ -460,6 +460,10 @@ PrefabInstance:
       propertyPath: m_margin.y
       value: -13.42667
       objectReference: {fileID: 0}
+    - target: {fileID: 5099065640258139371, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5988626360617825133, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
       propertyPath: m_Name
       value: ScoreUI
@@ -470,7 +474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6648023369597588737, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 182
+      value: 159
       objectReference: {fileID: 0}
     - target: {fileID: 7316466739379177242, guid: 3c6b55c70dcb757438cc7121bbc7c106, type: 3}
       propertyPath: m_LocalPosition.x
