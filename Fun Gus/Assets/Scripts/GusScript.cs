@@ -102,6 +102,7 @@ public class GusScript : MonoBehaviour
             if ((GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce) < startingHeadBounceForce) {
                 GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce += 1;
             }
+            
             cumulativeOneDirectionRoatation = 0;
             consecutiveFlips += 1;
         }
