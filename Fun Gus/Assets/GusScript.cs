@@ -46,7 +46,9 @@ public class GusScript : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space)) {
             if (StemLocked) {
-                myRigidbody.velocity = Vector2.up * Mathf.Max(Mathf.Min(timeJumpHeld * heldJumpMultiplier, maxJump), minJump);
+                float angle = myRigidbody.transform.eulerAngles.z;
+                angle = ((360)+(angle-90)) % 360;
+                myRigidbody.velocity = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * Mathf.Max(Mathf.Min(timeJumpHeld * heldJumpMultiplier, maxJump), minJump) * -1;
                 timeJumpHeld = 0;
             }
         }
