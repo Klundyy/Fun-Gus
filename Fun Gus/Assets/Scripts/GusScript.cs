@@ -20,7 +20,7 @@ public class GusScript : MonoBehaviour
     
     public Camera mainCamera;
     private Color stationaryColor = Color.gray;
-    private Color movingColor = Color.red;
+    private Color movingColor = Color.green;
     private float transitionSpeed = 2f;
 
     private float headBounceForce;
