@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class GusScript : MonoBehaviour
 {
     public Rigidbody2D myRigidbody;
+    [SerializeField] private GameObject directionArrow;
     public float rotationSpeed = 0.75f;
     // Start is called before the first frame update
     public string groundTag = "Ground";
@@ -13,6 +15,7 @@ public class GusScript : MonoBehaviour
     public float maxJump = 10f;
     public float minJump = 5f;
     public float heldJumpMultiplier = 2f;
+    [SerializeField] private float arrowOffset = 3f;
     
     public Camera mainCamera;
     private Color stationaryColor = Color.gray;
@@ -28,8 +31,11 @@ public class GusScript : MonoBehaviour
     private float lastRotation = 0;
     public float consecutiveFlips = 0;
 
+    SpriteRenderer smile;
+
     void Start()
     {
+        smile = GameObject.Find("smile").GetComponent<SpriteRenderer>();
         lastRotation = myRigidbody.transform.eulerAngles.z;
         headBounceForce = GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce;
         startingHeadBounceForce = GameObject.Find("Head").GetComponent<HeadBounceScript>().startingBounceForce;
@@ -67,7 +73,15 @@ public class GusScript : MonoBehaviour
         } else {
             mainCamera.backgroundColor = Color.Lerp(mainCamera.backgroundColor, stationaryColor, Time.deltaTime * transitionSpeed);
         }
-
+        if(StemLocked){
+            directionArrow.transform.localPosition = new Vector3(0, arrowOffset, 0);
+            directionArrow.transform.localRotation = Quaternion.Euler(0, 0, 90);
+            smile.enabled = false;
+        } else{
+            directionArrow.transform.localPosition = new Vector3(0, -arrowOffset, 0);
+            directionArrow.transform.localRotation = Quaternion.Euler(0, 0, -90);
+            smile.enabled = true;
+        }
         DetectFlip();
     }
 
