@@ -7,6 +7,7 @@ public class GusScript : MonoBehaviour
 {
     public Rigidbody2D myRigidbody;
     [SerializeField] private GameObject directionArrow;
+    [SerializeField] private GameObject smile;
     public float rotationSpeed = 0.75f;
     // Start is called before the first frame update
     public string groundTag = "Ground";
@@ -19,7 +20,7 @@ public class GusScript : MonoBehaviour
     
     public Camera mainCamera;
     private Color stationaryColor = Color.gray;
-    private Color movingColor = Color.yellow;
+    private Color movingColor = Color.red;
     private float transitionSpeed = 2f;
 
     private float headBounceForce;
@@ -31,11 +32,10 @@ public class GusScript : MonoBehaviour
     private float lastRotation = 0;
     public float consecutiveFlips = 0;
 
-    SpriteRenderer smile;
+  
 
     void Start()
     {
-        smile = GameObject.Find("smile").GetComponent<SpriteRenderer>();
         lastRotation = myRigidbody.transform.eulerAngles.z;
         headBounceForce = GameObject.Find("Head").GetComponent<HeadBounceScript>().bounceForce;
         startingHeadBounceForce = GameObject.Find("Head").GetComponent<HeadBounceScript>().startingBounceForce;
@@ -44,6 +44,7 @@ public class GusScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        smile.SetActive(!StemLocked);
         if (Input.GetKey(KeyCode.Space)) {
             if (StemLocked) {
                 timeJumpHeld += Time.deltaTime;
@@ -76,11 +77,11 @@ public class GusScript : MonoBehaviour
         if(StemLocked){
             directionArrow.transform.localPosition = new Vector3(0, arrowOffset, 0);
             directionArrow.transform.localRotation = Quaternion.Euler(0, 0, 90);
-            smile.enabled = false;
+            
         } else{
             directionArrow.transform.localPosition = new Vector3(0, -arrowOffset, 0);
             directionArrow.transform.localRotation = Quaternion.Euler(0, 0, -90);
-            smile.enabled = true;
+           
         }
         DetectFlip();
     }
